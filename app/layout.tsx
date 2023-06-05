@@ -1,6 +1,9 @@
 import Sidebar from '@/components/Sidebar'
 import './globals.css'
 import { Figtree } from 'next/font/google'
+import SupabaseProvider from '@/providers/SupabaseProvider'
+import UserProvider from '@/providers/UserProvider'
+import ModalProvider from '@/providers/ModelProvider'
 
 const font = Figtree({ subsets: ['latin'] })
 
@@ -16,12 +19,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className} 
-      suppressHydrationWarning={true}
+      <body className={font.className}
+        suppressHydrationWarning={true}
       >
-        <Sidebar>
-        {children}
-        </Sidebar>        
+        <SupabaseProvider>
+          <UserProvider>
+            <ModalProvider/>
+          <Sidebar>
+            {children}
+          </Sidebar>
+          </UserProvider>
+        </SupabaseProvider>
       </body>
     </html>
   )

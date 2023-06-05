@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Subscription,UserDetails } from "@/types";
 import { useSessionContext,useUser as useSupabaseUser } from "@supabase/auth-helpers-react";
 import { User } from "@supabase/supabase-js";
 
 type UserContextType={
-    accessToken:string;
+    accessToken:string |null;
     user:User | null;
-    userDetails:UserDetails;
+    userDetails:UserDetails|null;
     isLoading:boolean;
     subscription:Subscription| null;
 }
@@ -47,7 +47,7 @@ export const UserContextProvider=(props:Props)=>{
                     setSubscription(subscriptionDetailsPromise.value.data as Subscription)
                 }
                 setIsLoadingDta(false)
-            })
+            }) 
         }
         else if(!user && !userLoading && !isLoadingData){
             setUserDetails(null);
@@ -61,6 +61,14 @@ export const UserContextProvider=(props:Props)=>{
         isLoading:isLoadingData || userLoading,
         subscription
     }
+    // TODO: If you got any error do like this <UserContext.Provider  value={value} {...props} />
+    return <UserContext.Provider  value={value} {...props} />
+}
 
-    return <UserContext.Provider value={value}/>
+export const useUser=()=>{
+    const context=useContext(UserContext);
+    if(context===undefined){
+        throw new Error("useUser hook should be within UserContextProvider")
+    }
+    return context;
 }
