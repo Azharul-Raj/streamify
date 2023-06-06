@@ -19,8 +19,9 @@ function AuthModal() {
             router.refresh();
             onClose()
         }
-    },[])
+    },[session])
     const handleClose=(open:boolean)=>{
+        
         if(!open){
             onClose();
             router.refresh()

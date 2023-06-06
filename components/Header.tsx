@@ -7,6 +7,10 @@ import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 import Button from './Button';
 import useAuthModal from '@/hooks/useAuthModal';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { useUser } from '@/hooks/useUser';
+import { FaUserAlt } from 'react-icons/fa';
+import { toast } from 'react-hot-toast';
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -17,8 +21,17 @@ function Header({ children, className }: HeaderProps) {
     const router = useRouter();
     const {onOpen}=useAuthModal()
 
-    const handleLogout = () => {
+    const supabaseClient=useSupabaseClient();
+    const {user}=useUser();
 
+
+    const handleLogout = async() => {
+        //TODO:stop playing song when user logout;
+        const {error}=await supabaseClient?.auth?.signOut();
+        router.refresh()
+        if(error){
+            console.log(error)
+        }
     }
     return (
         <div
@@ -46,7 +59,27 @@ function Header({ children, className }: HeaderProps) {
                     </button>
                 </div>
                 <div className="flex justify-center items-center gap-x-4">
-                    <div className="">
+                    {user?(
+                        <>
+                         <div className="">
+
+                         <Button onClick={handleLogout} className='bg-white text-gray-800 px-6 py-2 font-bold'>
+                             Logout
+                         </Button>
+                         </div>
+                         <div className="">
+     
+                         <Button onClick={()=>router.push('/account')} className='bg-white p-2 '>
+                             <FaUserAlt
+                             
+                             />
+                         </Button>
+                         </div>
+                         </>
+                    )
+                    :
+                      (  <>
+                        <div className="">
 
                     <Button className='bg-transparent text-neutral-300 font-medium '>
                         Sign Up
@@ -58,6 +91,8 @@ function Header({ children, className }: HeaderProps) {
                         Log in
                     </Button>
                     </div>
+                    </>)
+                    }
                 </div>
                 
             </div>
