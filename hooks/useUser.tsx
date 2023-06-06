@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Subscription,UserDetails } from "@/types";
 import { useSessionContext,useUser as useSupabaseUser } from "@supabase/auth-helpers-react";
 import { User } from "@supabase/supabase-js";
+import { Subscription,UserDetails } from "@/types";
 
 type UserContextType={
     accessToken:string |null;
@@ -25,6 +25,7 @@ export const UserContextProvider=(props:Props)=>{
     const [userDetails,setUserDetails]=useState<UserDetails | null>(null);
     const [subscription,setSubscription]=useState<Subscription | null>(null);
 
+    console.log(user)
     const getUserDetails=()=>supabase.from('users').select('*').single();
 
     const getSubscriptionDetails=()=>

@@ -24,17 +24,17 @@ function Modal({ title, description, isOpen, onChange, children }: ModalProps) {
                 />
                 <Dialog.Content 
                  className='fixed drop-shadow-md border-neutral-700 top-[50%] left-[50%]
-                  max-h-full h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vh] md:max-w-[450px]
-                   rounded-md bg-neutral-800 p-[25px] focus:outline-none text-center
+                  max-h-full h-full md:h-auto md:max-h-full w-full md:w-[90vh] md:max-w-[450px]
+                   rounded-md bg-neutral-800 p-[25px] focus:outline-none transition-all
                    -translate-x-1/2 -translate-y-1/2'
                 >
                     <Dialog.Title
-                     className='text-xl font-bold mb-4'
+                     className='text-xl text-center font-bold'
                     >
                         {title}
                     </Dialog.Title>
                     <Dialog.Description
-                     className='mb-5 text-sm leading-normal '
+                     className='text-sm text-center leading-normal py-2'
                     >
                         {description}
                     </Dialog.Description>
@@ -42,7 +42,7 @@ function Modal({ title, description, isOpen, onChange, children }: ModalProps) {
                         {children}
                     </div>
                     <Dialog.Close asChild>
-                     <IoMdClose/>
+                     <IoMdClose className='text-neutral-400 hover:text-white absolute top-3 right-3'/>
                     </Dialog.Close>
                 </Dialog.Content>
             </Dialog.Portal>
