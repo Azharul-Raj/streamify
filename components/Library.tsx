@@ -10,7 +10,7 @@ function Library() {
     const authModal=useAuthModal();
     const uploadModal=useUploadModal()
     const {user}=useUser()
-    const handleAdd=()=>{
+    const handleAddSong=()=>{
         if(!user){
             return authModal.onOpen();
         }
@@ -29,7 +29,7 @@ function Library() {
                 </p>
             </div>
             <AiOutlinePlus
-            onClick={handleAdd}
+            onClick={handleAddSong}
             size={20}
              className='hover:text-white cursor-pointer transition'
             />
