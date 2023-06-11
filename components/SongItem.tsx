@@ -15,9 +15,9 @@ function SongItem({ song, onClick }: SongItemProps) {
 
     return (
         <div
+            onClick={()=>onClick(song.id)}
             className="relative group rounded-md flex flex-col justify-center items-center overflow-hidden
-            cursor-pointer p-3 transition bg-neutral-400/5 hover:bg-neutral-400/10
-    ">
+            cursor-pointer p-3 transition bg-neutral-400/5 hover:bg-neutral-400/10">
             <div className="w-full h-full aspect-square relative rounded-md overflow-hidden">
                 <Image
                     src={imagePath ? imagePath : '/images/liked.png'}
